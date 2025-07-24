@@ -1,8 +1,8 @@
-An upcoming job application auto filler for firefox android using the wxt framework.
+An upcoming job application auto filler for firefox android using the [wxt](https://wxt.dev/) framework.
 
 ## Dev
 ### Requirements
-- pnpm (package manager)
+- [pnpm](https://pnpm.io/) (package manager)
 ### Dev mode
 
 ```
