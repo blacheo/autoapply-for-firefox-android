@@ -48,10 +48,10 @@ function App() {
           <Skeleton/>
         </>
       ) : <form id='personalinfo'>
-          <TextField id='first-name' label='First Name' value={form.firstName}/>
-          <TextField id='last-name' label='Last Name' value={form.lastName}/>
-          <TextField id='email-address' label='Email Address' value={form.emailAddress}/>
-          <TextField id='phone-number' label='Phone Number' value={form.phoneNumber}/>
+          <TextField id='first-name' label='First Name' defaultValue={form.firstName}/>
+          <TextField id='last-name' label='Last Name' defaultValue={form.lastName}/>
+          <TextField id='email-address' label='Email Address' defaultValue={form.emailAddress}/>
+          <TextField id='phone-number' label='Phone Number' defaultValue={form.phoneNumber}/>
           <Button id='save-button' onClick={saveData}>Save</Button>
         </form>)}
     </>
