@@ -3,10 +3,10 @@ import { PersonalInfo } from "./personalInfo"
 
 // Handles storage of personal information
 export class PersonalInfoFormStorage {
-    private static firstName = storage.defineItem<string>('local:first_name')
-    private static lastName = storage.defineItem<string>('local:last_name')
-    private static emailAddress = storage.defineItem<string>('local:email_address')
-    private static phoneNumber = storage.defineItem<string>('local:phone_number')
+    private static firstName = storage.defineItem<string>('local:first_name', {fallback: ""})
+    private static lastName = storage.defineItem<string>('local:last_name', {fallback: ""})
+    private static emailAddress = storage.defineItem<string>('local:email_address', {fallback: ""})
+    private static phoneNumber = storage.defineItem<string>('local:phone_number', {fallback: ""})
 
     static async setValues(values: PersonalInfo) {
         await storage.setItems([
@@ -20,8 +20,8 @@ export class PersonalInfoFormStorage {
     static async getValues() : Promise<PersonalInfo>{
         let key_values = await storage.getItems([this.firstName, this.lastName, this.emailAddress, this.phoneNumber])
 
-        let firstName, lastName, emailAddress, phoneNumber, _ = key_values.values()
-
-        return PersonalInfo.create({firstName:firstName, lastName:lastName, emailAddress:emailAddress, phoneNumber:phoneNumber})
+        const [firstName, lastName, emailAddress, phoneNumber] = key_values.values()
+        console.log(`retrieved values: ${firstName}, ${lastName}, ${emailAddress}, ${phoneNumber}`)
+        return PersonalInfo.create({firstName:firstName.value, lastName:lastName.value, emailAddress:emailAddress.value, phoneNumber:phoneNumber.value})
     }
 }

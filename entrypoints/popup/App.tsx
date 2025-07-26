@@ -3,21 +3,22 @@ import { Button, Skeleton, TextField } from '@mui/material';
 import { PersonalInfo } from '@/utils/personalInfo';
 import { PersonalInfoFormStorage } from '@/utils/personalInfoFormStorage';
 
-function saveData() {
+async function saveData() {
 
 
-  let firstName = document.querySelector("#first-name")?.nodeValue ?? "empty"
-  let lastName = document.querySelector("#last-name")?.nodeValue ?? ""
-  let emailAddress = document.querySelector("#email-address")?.nodeValue ?? ""
-  let phoneNumber = document.querySelector("#phone-number")?.nodeValue ?? ""
+  let firstName = document.getElementById("first-name") as HTMLInputElement
+  let lastName = document.getElementById("last-name") as HTMLInputElement
+  let emailAddress = document.getElementById("email-address") as HTMLInputElement
+  let phoneNumber = document.getElementById("phone-number") as HTMLInputElement
 
   let personalInfo = PersonalInfo.create({
-      firstName: firstName,
-      lastName: lastName,
-      emailAddress: emailAddress,
-      phoneNumber: phoneNumber
+      firstName: firstName.value,
+      lastName: lastName.value,
+      emailAddress: emailAddress.value,
+      phoneNumber: phoneNumber.value
     })
-  PersonalInfoFormStorage.setValues(personalInfo)
+
+  await PersonalInfoFormStorage.setValues(personalInfo)
 }
 
 function App() {
@@ -28,6 +29,7 @@ function App() {
   useEffect(() => {
     PersonalInfoFormStorage.getValues().then(result => {
       setForm(result)
+      console.log(result)
       setLoading(false)
     })
     return () => setLoading(true)
@@ -50,7 +52,7 @@ function App() {
           <TextField id='last-name' label='Last Name' value={form.lastName}/>
           <TextField id='email-address' label='Email Address' value={form.emailAddress}/>
           <TextField id='phone-number' label='Phone Number' value={form.phoneNumber}/>
-          <Button onClick={saveData}>Save</Button>
+          <Button id='save-button' onClick={saveData}>Save</Button>
         </form>)}
     </>
   );
