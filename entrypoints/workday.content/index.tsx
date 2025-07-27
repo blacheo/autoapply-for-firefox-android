@@ -13,8 +13,7 @@ export default defineContentScript({
   cssInjectionMode: "ui",
 
   async main(ctx) {
-    const ui = await createShadowRootUi(ctx, {
-      name: 'autofill-ui',
+    const ui = await createIntegratedUi(ctx, {
       position: 'overlay',
       anchor: 'main',
       append: 'first',
