@@ -5,4 +5,7 @@ export class PersonalInfo extends Data {
     lastName: string = "";
     emailAddress: string = "";
     phoneNumber: string = "";
+    fullName() {
+        return `${this.firstName} ${this.lastName}`
+    }
 }
