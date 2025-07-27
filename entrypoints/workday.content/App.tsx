@@ -1,7 +1,10 @@
+import { Button, Fab } from "@mui/material";
+import CreateIcon from '@mui/icons-material/Create';
+
 export function App() {
     return (
     <>
-        <p>This is React</p>
+        <Fab variant='extended'><CreateIcon sx={{ mr: 1 }}/>Autocomplete</Fab>
     </>
     )
 }
