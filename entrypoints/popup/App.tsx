@@ -1,30 +1,19 @@
 import { useEffect, useState } from 'react';
-import { Button, Skeleton, TextField } from '@mui/material';
+import { Fab, Step, StepButton, StepContent, Stepper } from '@mui/material';
 import { PersonalInfo } from '@/utils/personalInfo';
 import { PersonalInfoFormStorage } from '@/utils/personalInfoFormStorage';
-
-async function saveData() {
-
-
-  let firstName = document.getElementById("first-name") as HTMLInputElement
-  let lastName = document.getElementById("last-name") as HTMLInputElement
-  let emailAddress = document.getElementById("email-address") as HTMLInputElement
-  let phoneNumber = document.getElementById("phone-number") as HTMLInputElement
-
-  let personalInfo = PersonalInfo.create({
-      firstName: firstName.value,
-      lastName: lastName.value,
-      emailAddress: emailAddress.value,
-      phoneNumber: phoneNumber.value
-    })
-
-  await PersonalInfoFormStorage.setValues(personalInfo)
-}
+import '@fontsource/roboto/300.css';
+import '@fontsource/roboto/400.css';
+import '@fontsource/roboto/500.css';
+import '@fontsource/roboto/700.css';
+import { PersonalInfoComponent } from './components/PersonalInfoForm';
+import DriveFolderUploadIcon from '@mui/icons-material/DriveFolderUpload';
 
 function App() {
 
   const [loading, setLoading] = useState(true);
   const [form, setForm] = useState(PersonalInfo.create());
+  const [activeStep, setActiveStep] = useState(0)
 
   useEffect(() => {
     PersonalInfoFormStorage.getValues().then(result => {
@@ -35,25 +24,38 @@ function App() {
     return () => setLoading(true)
   }, [])
 
+  const handleStep = (step: number) => () => {
+    console.log(`handle step ${step}`)
+    setActiveStep(step);
+  };
+
   return (
     <>
-      <h1>Auto Applier</h1>
-      <h2>Your Resumes</h2>
-      <h2>Personal Information</h2>
-      {(loading ? (
-        <>
-          <Skeleton/>
-          <Skeleton/>
-          <Skeleton/>
-          <Skeleton/>
-        </>
-      ) : <form id='personalinfo'>
-          <TextField id='first-name' label='First Name' defaultValue={form.firstName}/>
-          <TextField id='last-name' label='Last Name' defaultValue={form.lastName}/>
-          <TextField id='email-address' label='Email Address' defaultValue={form.emailAddress}/>
-          <TextField id='phone-number' label='Phone Number' defaultValue={form.phoneNumber}/>
-          <Button id='save-button' onClick={saveData}>Save</Button>
-        </form>)}
+      <h1 className='text-base'>Auto Applier</h1>
+      <h2 className='text-base'></h2>
+      <Stepper nonLinear activeStep={activeStep} orientation='vertical'>
+        <Step key="Select a Resume">
+          <StepButton onClick={handleStep(0)}>
+            Select a Resume
+          </StepButton>
+          <StepContent>
+            <input type="file" id="input" multiple />
+
+            <Fab><DriveFolderUploadIcon/></Fab>
+          </StepContent>
+        </Step>
+
+        <Step key="Fill personal information">
+          <StepButton onClick={handleStep(1)}>
+            Enter personal information
+          </StepButton>
+          <StepContent>
+            <PersonalInfoComponent loading={loading} form={form} />
+          </StepContent>
+        </Step>
+      </Stepper>
+
+
     </>
   );
 }
