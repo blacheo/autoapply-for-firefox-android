@@ -9,6 +9,7 @@ import '@fontsource/roboto/700.css';
 import { PersonalInfoComponent } from './components/PersonalInfoForm';
 import DriveFolderUploadIcon from '@mui/icons-material/DriveFolderUpload';
 import { ResumeNaming } from './components/ResumeNaming';
+import { ResumeSection } from './components/ResumeSection';
 
 function App() {
   const [activeStep, setActiveStep] = useState(0)
@@ -26,6 +27,7 @@ function App() {
             Select a Resume
           </StepButton>
           <StepContent>
+            <ResumeSection/>
             <ResumeNaming />
           </StepContent>
         </Step>
