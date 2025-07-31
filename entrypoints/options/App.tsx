@@ -10,6 +10,7 @@ import { PersonalInfoComponent } from './components/PersonalInfoForm';
 import DriveFolderUploadIcon from '@mui/icons-material/DriveFolderUpload';
 import { ResumeNaming } from './components/ResumeNaming';
 import { ResumeSection } from './components/ResumeSection';
+import { ResumeSelection } from './components/ResumeSelection';
 
 function App() {
   const [activeStep, setActiveStep] = useState(0)
@@ -28,6 +29,7 @@ function App() {
           </StepButton>
           <StepContent>
             <ResumeSection/>
+            <ResumeSelection/>
             <ResumeNaming />
           </StepContent>
         </Step>

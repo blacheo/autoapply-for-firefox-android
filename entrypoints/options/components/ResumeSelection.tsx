@@ -1,11 +1,22 @@
+import { ResumeStorage } from "@/utils/resumeStorage";
 import { NativeSelect } from "@mui/material";
 
 export function ResumeSelection() {
-    const [resumes, setResumes] = useState([]);
+    const [resume, setResume] = useState<File | null>(null);
+
+    useEffect(() => {
+        ResumeStorage.resume.watch((file) => setResume(file))
+    }, [])
+
     return (
         <>
-            <NativeSelect>
-            </NativeSelect>
+            {resume !== null && (
+                <>
+                    <NativeSelect>
+                        <option>{resume.name}</option>
+                    </NativeSelect>
+
+                </>)}
         </>
     )
 }

@@ -1,9 +1,20 @@
+import { ResumeStorage } from "@/utils/resumeStorage";
 import { Button } from "@mui/material"
+import { ChangeEvent } from "react";
 
 function UploadButton() {
     const uploadRef = useRef<HTMLInputElement>(null);
-    const handleChange = () => {
+    const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
         console.log("File uploaded")
+        if (e.target.files === null) {
+            return
+        }
+
+        const file = e.target.files[0]
+        if (file) {
+            ResumeStorage.resume.setValue(file)
+        }
+        
     }
 
     return (

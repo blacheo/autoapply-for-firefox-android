@@ -1,9 +1,10 @@
-class ResumeStorage {
+export class ResumeStorage {
     private static resumeName = storage.defineItem<string>('local:resume_name', { fallback: "" })
-
+    public static resume = storage.defineItem<File>('local:resume')
 
     static async getResumeName() {
         const name = await ResumeStorage.resumeName.getValue()
+        
         if (name === "") {
             const personalInfo = await PersonalInfoFormStorage.getValues()
 
@@ -21,9 +22,8 @@ class ResumeStorage {
         await ResumeStorage.resumeName.setValue(name);
     }
 
-    // submitted resumes will use this file name
-    getResumeDefaultName() {
-
+    static async uploadResume(file: File) {
+        await this.resume.setValue(file)
     }
 
     
