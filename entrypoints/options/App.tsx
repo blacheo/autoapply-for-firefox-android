@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Fab, Step, StepButton, StepContent, Stepper, Typography } from '@mui/material';
+import { Fab, Stack, Step, StepButton, StepContent, Stepper, Typography } from '@mui/material';
 import { PersonalInfo } from '@/utils/personalInfo';
 import { PersonalInfoFormStorage } from '@/utils/personalInfoFormStorage';
 import '@fontsource/roboto/300.css';
@@ -28,9 +28,12 @@ function App() {
             Select a Resume
           </StepButton>
           <StepContent>
-            <ResumeSection/>
-            <ResumeSelection/>
-            <ResumeNaming />
+            <Stack>
+              <ResumeSelection />
+              <ResumeSection />
+              <ResumeNaming />
+            </Stack>
+
           </StepContent>
         </Step>
 

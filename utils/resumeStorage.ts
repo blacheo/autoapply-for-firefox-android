@@ -1,10 +1,12 @@
+
+
 export class ResumeStorage {
     private static resumeName = storage.defineItem<string>('local:resume_name', { fallback: "" })
     public static resume = storage.defineItem<File>('local:resume')
 
     static async getResumeName() {
         const name = await ResumeStorage.resumeName.getValue()
-        
+
         if (name === "") {
             const personalInfo = await PersonalInfoFormStorage.getValues()
 
@@ -18,7 +20,7 @@ export class ResumeStorage {
         return name;
     }
 
-    static async setResumeName(name : string) {
+    static async setResumeName(name: string) {
         await ResumeStorage.resumeName.setValue(name);
     }
 
@@ -26,5 +28,5 @@ export class ResumeStorage {
         await this.resume.setValue(file)
     }
 
-    
+
 }

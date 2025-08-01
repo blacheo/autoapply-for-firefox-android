@@ -5,7 +5,8 @@ export function ResumeSelection() {
     const [resume, setResume] = useState<File | null>(null);
 
     useEffect(() => {
-        ResumeStorage.resume.watch((file) => setResume(file))
+        ResumeStorage.resume.getValue().then((file) => setResume(file));
+        ResumeStorage.resume.watch((file) => setResume(file));
     }, [])
 
     return (
