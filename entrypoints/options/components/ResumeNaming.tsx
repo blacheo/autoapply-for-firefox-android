@@ -12,8 +12,8 @@ export function ResumeNaming() {
 
     return (
         <>
-            <Typography variant="subtitle1">This is the filename used by the resume being submitted</Typography>
             <TextField label='Resume Name' defaultValue={resumeName} />
+            <Typography variant="subtitle1">This is the filename used by the resume being submitted</Typography>
         </>
     )
 }
