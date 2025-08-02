@@ -1,19 +1,38 @@
-import { Data } from "dataclass";
 
-export class PersonalInfo extends Data {
-    firstName: string = "";
-    lastName: string = "";
-    emailAddress: string = "";
-    phoneNumber: string = "";
+export type PersonalInfoInputs = {
+  firstName: string
+  lastName: string
+  emailAddress: string
+  phoneNumber: string
 
-    addressLine1: string = "";
-    addressLine2: string = "";
-    cityOrTown: string = "";
-    postalCode: string = "";
-    country: string = "";
+  addressLine1: string
+  addressLine2: string
+  cityOrTown: string
+  postalCode: string
+  country: string
 
-    onlyFillMandatory: boolean = true;
-    fullName() {
-        return `${this.firstName} ${this.lastName}`
-    }
 }
+export type FormDataKeys = keyof PersonalInfoInputs
+// Create an array of the keys
+export const formDataKeys: FormDataKeys[] = [
+  'firstName',
+  'lastName',
+  'emailAddress',
+  'phoneNumber',
+  'addressLine1',
+  'addressLine2',
+  'cityOrTown',
+  'postalCode',
+  'country',
+]
+
+export function camelCaseToSentence(camelCaseStr: string): string {
+  return camelCaseStr
+    .replace(/([a-z])([A-Z0-9])/g, '$1 $2')
+    .trim()
+    .toLowerCase()
+    .replace(/^\w/, (c) => c.toUpperCase());
+}
+
+export const personalInfoStorage = storage.defineItem<PersonalInfoInputs>("local:personal_info")
+

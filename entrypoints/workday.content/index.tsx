@@ -1,5 +1,4 @@
 import ReactDOM from "react-dom/client";
-import { PersonalInfoFormStorage } from "@/utils/personalInfoFormStorage";
 import { App } from "./App";
 import "~/assets/tailwind.css"
 
@@ -26,7 +25,7 @@ export default defineContentScript({
         return {root, wrapper};
       }
     })
-    const personalInfo = await PersonalInfoFormStorage.getValues()
+    const personalInfo = await personalInfoStorage.getValue()
     console.log("Hello world!");
     // Optionally, return a value to the background
 

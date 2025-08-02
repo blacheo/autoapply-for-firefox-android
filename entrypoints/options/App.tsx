@@ -1,13 +1,10 @@
-import { useEffect, useState } from 'react';
-import { Fab, Stack, Step, StepButton, StepContent, Stepper, Typography } from '@mui/material';
-import { PersonalInfo } from '@/utils/personalInfo';
-import { PersonalInfoFormStorage } from '@/utils/personalInfoFormStorage';
+import { useState } from 'react';
+import { Stack, Step, StepButton, StepContent, Stepper, Typography } from '@mui/material';
 import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
 import { PersonalInfoComponent } from './components/PersonalInfoForm';
-import DriveFolderUploadIcon from '@mui/icons-material/DriveFolderUpload';
 import { ResumeNaming } from './components/ResumeNaming';
 import { ResumeSection } from './components/ResumeSection';
 import { ResumeSelection } from './components/ResumeSelection';
