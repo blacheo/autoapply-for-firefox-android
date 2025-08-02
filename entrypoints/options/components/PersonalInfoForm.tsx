@@ -16,14 +16,20 @@ async function saveData() {
   await PersonalInfoFormStorage.setValues(personalInfo)
 }
 
-interface PersonalInfoProps {
-  loading: boolean, form: PersonalInfo
-}
+export function PersonalInfoComponent() {
+  const [loading, setLoading] = useState(true);
+  const [form, setForm] = useState(PersonalInfo.create());
 
-export function PersonalInfoComponent({ loading, form }: PersonalInfoProps) {
+  useEffect(() => {
+    PersonalInfoFormStorage.getValues().then(result => {
+      setForm(result)
+      console.log(result)
+      setLoading(false)
+    })
+    return () => setLoading(true)
+  }, [])
   return (
     <>
-      <Typography variant='h6'>Personal Information</Typography>
       {
         (loading ? (
           <>
