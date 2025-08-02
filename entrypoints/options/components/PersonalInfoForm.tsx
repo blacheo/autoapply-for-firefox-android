@@ -1,15 +1,6 @@
 import { FormDataKeys, formDataKeys, PersonalInfoInputs, personalInfoStorage } from "@/utils/personalInfo"
 import { Button, Skeleton, Stack, TextField, Typography } from "@mui/material"
-import { useForm } from "react-hook-form"
-
-async function saveData() {
-  let firstName = document.getElementById("first-name") as HTMLInputElement
-  let lastName = document.getElementById("last-name") as HTMLInputElement
-  let emailAddress = document.getElementById("email-address") as HTMLInputElement
-  let phoneNumber = document.getElementById("phone-number") as HTMLInputElement
-
-  
-}
+import { SubmitHandler, useForm } from "react-hook-form"
 
 export function PersonalInfoComponent() {
   const {
@@ -39,12 +30,14 @@ export function PersonalInfoComponent() {
     personalInfoStorage.getValue().then(result => {
       if (result) {
         setForm(result)
-        
       } 
       setLoading(false)
     })
     return () => setLoading(true)
   }, [])
+
+
+  const onSubmit: SubmitHandler<PersonalInfoInputs> = async (data) => await personalInfoStorage.setValue(data)
   return (
     <>
       {
@@ -55,10 +48,10 @@ export function PersonalInfoComponent() {
             <Skeleton />
             <Skeleton />
           </>
-        ) : <form id='personalinfo'>
+        ) : <form id='personalinfo' onSubmit={handleSubmit(onSubmit)}>
           <Stack className='pl-2' spacing={{ xs: 1, sm: 2 }}>
             { formDataKeys.map((value) => inputField(value))}
-            <Button variant='contained' id='save-button' onClick={saveData}>Save</Button>
+            <Button variant='contained' id='save-button' type="submit">Save</Button>
           </Stack>
 
         </form>)
