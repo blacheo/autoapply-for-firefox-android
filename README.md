@@ -14,3 +14,7 @@ pnpm dev
 ```
 pnpm build
 ```
+
+### Testing on Android
+
+[Refer to this link](https://extensionworkshop.com/documentation/develop/developing-extensions-for-firefox-for-android/)
