@@ -11,6 +11,9 @@ export type PersonalInfoInputs = {
   postalCode: string
   country: string
 
+  workAuthorizationCanada: boolean
+  linkedinProfile: string
+
 }
 export type FormDataKeys = keyof PersonalInfoInputs
 // Create an array of the keys
@@ -24,6 +27,10 @@ export const formDataKeys: FormDataKeys[] = [
   'cityOrTown',
   'postalCode',
   'country',
+]
+
+export const booleanDataKeys: FormDataKeys[] = [
+  "workAuthorizationCanada"
 ]
 
 export function camelCaseToSentence(camelCaseStr: string): string {

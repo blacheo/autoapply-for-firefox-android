@@ -16,9 +16,13 @@ function App() {
     setActiveStep(step);
   };
 
+  const handleNext = () => {
+    handleStep(activeStep + 1);
+  };
+
   return (
     <>
-      <Typography variant='h6'>Auto Applier</Typography>
+      <Typography variant='h5'>Auto Applier</Typography>
       <Stepper nonLinear activeStep={activeStep} orientation='vertical'>
         <Step key="Select a Resume">
           <StepButton onClick={handleStep(0)}>
@@ -41,6 +45,20 @@ function App() {
           <StepContent>
             <PersonalInfoComponent />
           </StepContent>
+        </Step>
+
+        <Step key={"Fill contact information"}>
+          <StepButton onClick={handleStep(2)}>
+            Fill contact information
+          </StepButton>
+
+        </Step>
+
+        <Step key={"Miscelaneous"}>
+          <StepButton onClick={handleStep(3)}>
+            Miscelaneous
+          </StepButton>
+
         </Step>
       </Stepper>
 
