@@ -1,4 +1,4 @@
-import { FormDataKeys, formDataKeys, PersonalInfoInputs, personalInfoStorage } from "@/utils/form fields/personalInfo"
+import { camelCaseToSentence, FormDataKeys, formDataKeys, PersonalInfoInputs, personalInfoStorage } from "@/utils/personalInfo"
 import { Button, Skeleton, Stack, TextField, Typography } from "@mui/material"
 import { SubmitHandler, useForm } from "react-hook-form"
 
@@ -30,7 +30,7 @@ export function PersonalInfoComponent() {
     personalInfoStorage.getValue().then(result => {
       if (result) {
         setForm(result)
-      } 
+      }
       setLoading(false)
     })
     return () => setLoading(true)
@@ -50,7 +50,7 @@ export function PersonalInfoComponent() {
           </>
         ) : <form id='personalinfo' onSubmit={handleSubmit(onSubmit)}>
           <Stack className='pl-2' spacing={{ xs: 1, sm: 2 }}>
-            { formDataKeys.map((value) => inputField(value))}
+            {formDataKeys.map((value) => inputField(value))}
             <Button variant='contained' id='save-button' type="submit">Save</Button>
           </Stack>
 
