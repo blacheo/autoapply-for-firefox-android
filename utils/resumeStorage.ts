@@ -8,9 +8,9 @@ export class ResumeStorage {
         const name = await ResumeStorage.resumeName.getValue()
 
         if (name === "") {
-            const personalInfo = await PersonalInfoFormStorage.getValues()
+            const personalInfo = await personalInfoStorage.getValue()
 
-            if (personalInfo.firstName !== "" && personalInfo.lastName !== "") {
+            if (personalInfo && personalInfo.firstName !== "" && personalInfo.lastName !== "") {
                 const defaultName = `${personalInfo.firstName}_${personalInfo.lastName}`;
                 await ResumeStorage.resumeName.setValue(defaultName);
                 return defaultName;

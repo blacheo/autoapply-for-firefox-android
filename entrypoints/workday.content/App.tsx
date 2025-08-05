@@ -1,13 +1,12 @@
 import { Button, Fab } from "@mui/material";
 import CreateIcon from '@mui/icons-material/Create';
 import { WorldayApplicationForm } from "./workdayApplicationForm";
-import { PersonalInfoFormStorage } from "@/utils/personalInfoFormStorage";
 
 async function autofill() {
     console.log("starting autocomplete")
     const workdayApp = new WorldayApplicationForm()
 
-    workdayApp.autofill(await PersonalInfoFormStorage.getValues())
+    workdayApp.autofill(await personalInfoStorage.getValue())
 }
 
 

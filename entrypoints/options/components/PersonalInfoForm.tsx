@@ -1,33 +1,43 @@
+import { camelCaseToSentence, FormDataKeys, formDataKeys, PersonalInfoInputs, personalInfoStorage } from "@/utils/personalInfo"
 import { Button, Skeleton, Stack, TextField, Typography } from "@mui/material"
-
-async function saveData() {
-  let firstName = document.getElementById("first-name") as HTMLInputElement
-  let lastName = document.getElementById("last-name") as HTMLInputElement
-  let emailAddress = document.getElementById("email-address") as HTMLInputElement
-  let phoneNumber = document.getElementById("phone-number") as HTMLInputElement
-
-  let personalInfo = PersonalInfo.create({
-    firstName: firstName.value,
-    lastName: lastName.value,
-    emailAddress: emailAddress.value,
-    phoneNumber: phoneNumber.value
-  })
-
-  await PersonalInfoFormStorage.setValues(personalInfo)
-}
+import { SubmitHandler, useForm } from "react-hook-form"
 
 export function PersonalInfoComponent() {
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm<PersonalInfoInputs>()
+
   const [loading, setLoading] = useState(true);
-  const [form, setForm] = useState(PersonalInfo.create());
+  const [form, setForm] = useState<PersonalInfoInputs>();
+
+  const inputField = (id: FormDataKeys) => {
+    return (
+      <>
+        <TextField
+          id={id}
+          label={camelCaseToSentence(id)}
+          defaultValue={form === undefined ? "" : form[id]}
+          {...register(id)}
+        />
+      </>
+    )
+  }
 
   useEffect(() => {
-    PersonalInfoFormStorage.getValues().then(result => {
-      setForm(result)
-      console.log(result)
+    personalInfoStorage.getValue().then(result => {
+      if (result) {
+        setForm(result)
+      }
       setLoading(false)
     })
     return () => setLoading(true)
   }, [])
+
+
+  const onSubmit: SubmitHandler<PersonalInfoInputs> = async (data) => await personalInfoStorage.setValue(data)
   return (
     <>
       {
@@ -38,13 +48,10 @@ export function PersonalInfoComponent() {
             <Skeleton />
             <Skeleton />
           </>
-        ) : <form id='personalinfo'>
+        ) : <form id='personalinfo' onSubmit={handleSubmit(onSubmit)}>
           <Stack className='pl-2' spacing={{ xs: 1, sm: 2 }}>
-            <TextField id='first-name' label='First Name' defaultValue={form.firstName} />
-            <TextField id='last-name' label='Last Name' defaultValue={form.lastName} />
-            <TextField id='email-address' label='Email Address' defaultValue={form.emailAddress} />
-            <TextField id='phone-number' label='Phone Number' defaultValue={form.phoneNumber} />
-            <Button variant='contained' id='save-button' onClick={saveData}>Save</Button>
+            {formDataKeys.map((value) => inputField(value))}
+            <Button variant='contained' id='save-button' type="submit">Save</Button>
           </Stack>
 
         </form>)
