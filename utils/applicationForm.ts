@@ -1,6 +1,6 @@
 import { Data } from "dataclass";
 import { FieldType } from "./fieldType";
-import { PersonalInfo } from "./personalInfo";
+import { PersonalInfo } from "./form fields/personalInfo";
 
 export class ApplicationField extends Data {
     inputField: HTMLInputElement | null = null;

@@ -9,10 +9,12 @@ export type PersonalInfoInputs = {
   addressLine2: string
   cityOrTown: string
   postalCode: string
+  provinceOrTerritory: string
   country: string
 
   workAuthorizationCanada: boolean
   linkedinProfile: string
+  howDidYouHearAboutUs: string
 
 }
 export type FormDataKeys = keyof PersonalInfoInputs

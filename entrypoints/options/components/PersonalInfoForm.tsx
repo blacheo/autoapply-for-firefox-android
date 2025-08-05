@@ -1,4 +1,4 @@
-import { FormDataKeys, formDataKeys, PersonalInfoInputs, personalInfoStorage } from "@/utils/personalInfo"
+import { FormDataKeys, formDataKeys, PersonalInfoInputs, personalInfoStorage } from "@/utils/form fields/personalInfo"
 import { Button, Skeleton, Stack, TextField, Typography } from "@mui/material"
 import { SubmitHandler, useForm } from "react-hook-form"
 
