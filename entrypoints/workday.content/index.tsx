@@ -7,7 +7,7 @@ export default defineContentScript({
   registration: "manifest",
   // Use an empty array for matches to prevent any host_permissions be added
   //  when using `registration: "runtime"`.
-  matches: ["*://*/*"],
+  matches: ["*://*.myworkdayjobs.com/*"],
   // Put the CSS in the shadow root
   cssInjectionMode: "ui",
 
