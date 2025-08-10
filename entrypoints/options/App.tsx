@@ -8,12 +8,13 @@ import { PersonalInfoComponent } from './components/PersonalInfoForm';
 import { ResumeNaming } from './components/ResumeNaming';
 import { ResumeSection } from './components/ResumeSection';
 import { ResumeSelection } from './components/ResumeSelection';
+import { ExperienceForm } from './components/ExperienceForm';
 
 function App() {
   const steps = [
     {task: "Select a Resume", element: <><ResumeSection/><ResumeSelection/><ResumeNaming /></>}, 
     {task: "Enter your personal Information", element: <PersonalInfoComponent />},
-    {task: "Your Experience", element: <div/>}];
+    {task: "Your Experience", element: <ExperienceForm/>}];
 
   const [activeStep, setActiveStep] = useState(0)
   const handleStep = (step: number) => () => {
