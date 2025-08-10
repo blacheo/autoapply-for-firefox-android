@@ -22,9 +22,10 @@ function SingleWorkExperienceForm(experience: Experience) {
                                 <DatePicker label="End Date" defaultValue={experience.endDate} />
                             </Grid>
                         </LocalizationProvider>
+                        <TextField label="Job Description" multiline defaultValue={experience.description} fullWidth/>
                     </Grid>
 
-                    <TextField label="Job Description" multiline defaultValue={experience.description} fullWidth/>
+                    
                 </CardContent>
                 <CardActionArea />
                 <CardActions>
