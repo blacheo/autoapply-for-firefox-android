@@ -11,25 +11,20 @@ function SingleWorkExperienceForm(experience: Experience) {
         <>
             <Card>
                 <CardContent>
-                    <Stack
-                        spacing={1}
-                        direction="row"
-                        useFlexGap>
-                        <TextField label="Company" defaultValue={experience.company} />
+                    <Grid container spacing={2}>
+                        <Grid spacing={2}>
+                            <TextField label="Company" defaultValue={experience.company} />
+                            <TextField label="Job Title" defaultValue={experience.jobTitle} />
+                        </Grid>
+                        <LocalizationProvider dateAdapter={AdapterDayjs}>
+                            <Grid spacing={2}>
+                                <DatePicker label="Start Date" defaultValue={experience.startDate} />
+                                <DatePicker label="End Date" defaultValue={experience.endDate} />
+                            </Grid>
+                        </LocalizationProvider>
+                    </Grid>
 
-                        <TextField label="Job Title" defaultValue={experience.jobTitle} />
-                    </Stack>
-                    <LocalizationProvider dateAdapter={AdapterDayjs}>
-                        <Stack
-                            spacing={1}
-                            direction="row"
-                            useFlexGap>
-                            <DatePicker label="Start Date" defaultValue={experience.startDate} />
-                            <DatePicker label="End Date" defaultValue={experience.endDate} />
-                        </Stack>
-
-                    </LocalizationProvider>
-                    <TextField label="Job Description" multiline defaultValue={experience.description} />
+                    <TextField label="Job Description" multiline defaultValue={experience.description} fullWidth/>
                 </CardContent>
                 <CardActionArea />
                 <CardActions>
