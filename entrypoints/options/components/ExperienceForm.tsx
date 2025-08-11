@@ -1,11 +1,11 @@
-import { Button, Card, CardActionArea, CardActions, CardContent, Fab, Grid, IconButton, Stack, TextField } from '@mui/material';
+import { Button, Card, CardActionArea, CardActions, CardContent, Grid, IconButton, Stack, TextField } from '@mui/material';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-import { PickerValue } from '@mui/x-date-pickers/internals';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import dayjs from 'dayjs';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { Dispatch, MouseEventHandler, SetStateAction } from 'react';
+import { MouseEventHandler } from 'react';
+import { Experience, experiencesStorage } from '@/utils/jobExperience';
 
 function SingleWorkExperienceForm(experience: Experience, deleteSelf: MouseEventHandler<HTMLButtonElement> | undefined, deleteDisabled: boolean) {
     return (
@@ -23,10 +23,10 @@ function SingleWorkExperienceForm(experience: Experience, deleteSelf: MouseEvent
                                 <DatePicker label="End Date" defaultValue={experience.endDate} />
                             </Grid>
                         </LocalizationProvider>
-                        <TextField label="Job Description" multiline defaultValue={experience.description} fullWidth/>
+                        <TextField label="Job Description" multiline defaultValue={experience.description} fullWidth />
                     </Grid>
 
-                    
+
                 </CardContent>
                 <CardActionArea />
                 <CardActions>
@@ -39,16 +39,6 @@ function SingleWorkExperienceForm(experience: Experience, deleteSelf: MouseEvent
     )
 }
 
-export type Experience = {
-    startDate: PickerValue
-    endDate: PickerValue
-    jobTitle: string
-    company: string
-    city: string
-    type: string
-    description: string
-}
-
 function defaultExperience(): Experience {
     return { startDate: dayjs('2020-01-01'), endDate: dayjs('2021-01-01'), jobTitle: "", company: "", city: "", type: "", description: "" }
 }
@@ -58,7 +48,11 @@ export function ExperienceForm() {
     const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
-
+        experiencesStorage.getValue().then(value => {
+            if (value !== null) {
+                setExperiences(value)
+            }
+        })
 
         setIsLoading(false)
         return () => { setIsLoading(true) }
