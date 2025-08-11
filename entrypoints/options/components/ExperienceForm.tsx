@@ -14,7 +14,7 @@ function SingleWorkExperienceForm(experience: Experience, deleteSelf: MouseEvent
                 <CardContent>
                     <Grid container spacing={2}>
                         <Grid spacing={2}>
-                            <TextField label="Company" defaultValue={experience.company} />
+                            <TextField label="Company" defaultValue={experience.company} onChange={() => setSelf()}/>
                             <TextField label="Job Title" defaultValue={experience.jobTitle} />
                         </Grid>
                         <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -47,6 +47,8 @@ export function ExperienceForm() {
     const [experiences, setExperiences] = useState([defaultExperience()]);
     const [isLoading, setIsLoading] = useState(true);
 
+    const []
+
     useEffect(() => {
         experiencesStorage.getValue().then(value => {
             if (value !== null) {
@@ -61,7 +63,13 @@ export function ExperienceForm() {
     return (
         <>
             <Stack spacing={2}>
-                {experiences.map((value, index) => SingleWorkExperienceForm(value, () => setExperiences(experiences.filter((_, j) => j != index)), experiences.length == 1))}
+                {experiences.map((value, index) => SingleWorkExperienceForm(
+                    value,
+                     () => setExperiences(experiences.filter((_, j) => j != index)),
+                      experiences.length == 1,
+                      (newExperience: Experience) => {
+                        setExperiences(experiences.map((oldValue, j) => (j == index) ? newExperience : oldValue))
+                      }))}
             </Stack>
 
             <Button onClick={() => setExperiences([...experiences, defaultExperience()])}>Add Work Experience</Button>
