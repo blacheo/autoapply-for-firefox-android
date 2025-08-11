@@ -5,8 +5,9 @@ import { PickerValue } from '@mui/x-date-pickers/internals';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import dayjs from 'dayjs';
 import DeleteIcon from '@mui/icons-material/Delete';
+import { Dispatch, MouseEventHandler, SetStateAction } from 'react';
 
-function SingleWorkExperienceForm(experience: Experience) {
+function SingleWorkExperienceForm(experience: Experience, deleteSelf: MouseEventHandler<HTMLButtonElement> | undefined, deleteDisabled: boolean) {
     return (
         <>
             <Card>
@@ -29,7 +30,7 @@ function SingleWorkExperienceForm(experience: Experience) {
                 </CardContent>
                 <CardActionArea />
                 <CardActions>
-                    <IconButton size='small'><DeleteIcon /></IconButton>
+                    <IconButton size='small' onClick={deleteSelf} disabled={deleteDisabled}><DeleteIcon /></IconButton>
                 </CardActions>
             </Card>
 
@@ -66,7 +67,7 @@ export function ExperienceForm() {
     return (
         <>
             <Stack spacing={2}>
-                {experiences.map((value) => SingleWorkExperienceForm(value))}
+                {experiences.map((value, index) => SingleWorkExperienceForm(value, () => setExperiences(experiences.filter((_, j) => j != index)), experiences.length == 1))}
             </Stack>
 
             <Button onClick={() => setExperiences([...experiences, defaultExperience()])}>Add Work Experience</Button>
