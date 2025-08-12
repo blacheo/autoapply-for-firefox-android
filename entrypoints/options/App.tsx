@@ -11,9 +11,11 @@ import { ResumeSelection } from './components/ResumeSelection';
 
 function App() {
   const steps = [
-    {task: "Select a Resume", element: <><ResumeSection/><ResumeSelection/><ResumeNaming /></>}, 
-    {task: "Enter your personal Information", element: <PersonalInfoComponent />},
-    {task: "Your Experience", element: <div/>}];
+    { task: "Select a Resume", element: <><ResumeSection /><ResumeSelection /><ResumeNaming /></> },
+    { task: "Enter your personal Information", element: <PersonalInfoComponent /> },
+    { task: "Your Experience", element: <div /> },
+    { task: "All done!", element: <Typography variant='body1'>Start applying to jobs by visiting a supported job application site</Typography> }];
+
 
   const [activeStep, setActiveStep] = useState(0)
   const handleStep = (step: number) => () => {
@@ -21,7 +23,7 @@ function App() {
   };
 
   const handleNext = () => {
-    handleStep(activeStep + 1);
+    setActiveStep(activeStep + 1);
   };
 
   return (
@@ -36,7 +38,7 @@ function App() {
             <StepContent>
               {value.element}
               <Button disabled={activeStep === 0} onClick={handleStep(activeStep - 1)}>Back</Button>
-              <Button onClick={() => handleNext()}>Next</Button>
+              <Button disabled={activeStep === steps.length - 1} onClick={handleNext}>Next</Button>
             </StepContent>
 
           </Step>
