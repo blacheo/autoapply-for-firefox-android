@@ -21,7 +21,7 @@ function App() {
   };
 
   const handleNext = () => {
-    handleStep(activeStep + 1);
+    setActiveStep(activeStep + 1);
   };
 
   return (
@@ -36,7 +36,7 @@ function App() {
             <StepContent>
               {value.element}
               <Button disabled={activeStep === 0} onClick={handleStep(activeStep - 1)}>Back</Button>
-              <Button onClick={() => handleNext()}>Next</Button>
+              <Button disabled={activeStep === steps.length - 1} onClick={handleNext}>Next</Button>
             </StepContent>
 
           </Step>
