@@ -11,9 +11,11 @@ import { ResumeSelection } from './components/ResumeSelection';
 
 function App() {
   const steps = [
-    {task: "Select a Resume", element: <><ResumeSection/><ResumeSelection/><ResumeNaming /></>}, 
-    {task: "Enter your personal Information", element: <PersonalInfoComponent />},
-    {task: "Your Experience", element: <div/>}];
+    { task: "Select a Resume", element: <><ResumeSection /><ResumeSelection /><ResumeNaming /></> },
+    { task: "Enter your personal Information", element: <PersonalInfoComponent /> },
+    { task: "Your Experience", element: <div /> },
+    { task: "All done!", element: <Typography variant='body1'>Start applying to jobs by visiting a supported job application site</Typography> }];
+
 
   const [activeStep, setActiveStep] = useState(0)
   const handleStep = (step: number) => () => {
