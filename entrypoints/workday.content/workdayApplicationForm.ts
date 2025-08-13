@@ -1,4 +1,4 @@
-import { FieldType } from "#imports"
+
 import { ApplicationForm } from "@/utils/applicationForm"
 
 // AKA given name
@@ -12,13 +12,13 @@ export class WorldayApplicationForm extends ApplicationForm {
     }
     protected getFields() {
         const fields: [string, FieldType][] = [
-            ["name--legalName--firstName", FieldType.firstName],
+            ["name--legalName--firstName", FieldType.FirstName],
             ["name--legalName--lastName", FieldType.LastName],
             ["address--addressLine1", FieldType.AddressLine1],
-            ["address--city", FieldType.city],
-            ["address--postalCode", FieldType.postalCode],
-            ["phoneNumber--phoneNumber", FieldType.phoneNumber],
-            ["phoneNumber--phoneType", FieldType.phoneType]
+            ["address--city", FieldType.City],
+            ["address--postalCode", FieldType.PostalCode],
+            ["phoneNumber--phoneNumber", FieldType.PhoneNumber],
+            ["phoneNumber--phoneType", FieldType.PhoneType]
         ]
         
 

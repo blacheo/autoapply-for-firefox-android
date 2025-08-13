@@ -5,4 +5,8 @@ export enum FieldType {
     Email,
     FullName,
     AddressLine1,
+    City,
+    PostalCode,
+    PhoneType,
+
 }

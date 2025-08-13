@@ -31,6 +31,12 @@ export abstract class ApplicationForm {
                 return personalInfo.phoneNumber
             case FieldType.AddressLine1:
                 return personalInfo.addressLine1
+            case FieldType.City:
+                return personalInfo.cityOrTown
+            case FieldType.PhoneType:
+                return "Mobile"
+            case FieldType.PostalCode:
+                return personalInfo.phoneNumber
             default:
                 throw Error(`Unexpected field type ${fieldType}`)
 

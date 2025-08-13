@@ -4,4 +4,7 @@ import { WxtVitest } from 'wxt/testing';
 
 export default defineConfig({
   plugins: [WxtVitest()],
+  test: {
+    environment: 'happy-dom', // Set the environment to happy-dom
+  },
 });
