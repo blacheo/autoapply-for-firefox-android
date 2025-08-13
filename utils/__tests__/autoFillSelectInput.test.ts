@@ -4,7 +4,9 @@ import { autofillFieldSelect } from "../autofillSelectInput";
 function createCountryOption(country: string) {
     const liCountry = document.createElement('li')
     const div = document.createElement('div')
+
     div.innerText = country
+    liCountry.appendChild(div)
     return liCountry
 }
 
@@ -35,7 +37,7 @@ describe('Autofill select input Tests', () => {
         expect(clickHandlers.get("Italy")).toHaveBeenCalledTimes(0)
     })
 
-    it("should return false when country is not found", () => {
+    it("should return false when the country is not found", () => {
         const actual = autofillFieldSelect(button, ulist, "Finland")
         
         expect(actual).toBe(false)
