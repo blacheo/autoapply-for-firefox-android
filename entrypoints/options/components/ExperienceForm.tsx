@@ -6,6 +6,7 @@ import dayjs from 'dayjs';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { MouseEventHandler } from 'react';
 import { Experience, experiencesStorage } from '@/utils/jobExperience';
+import { useFieldArray } from 'react-hook-form';
 
 function SingleWorkExperienceForm(experience: Experience, deleteSelf: MouseEventHandler<HTMLButtonElement> | undefined, deleteDisabled: boolean) {
     return (
@@ -47,7 +48,9 @@ export function ExperienceForm() {
     const [experiences, setExperiences] = useState([defaultExperience()]);
     const [isLoading, setIsLoading] = useState(true);
 
-    const []
+    const {fields, append, prepend, remove, swap, move, insert} = useFieldArray({
+        name: "experiences"
+    })
 
     useEffect(() => {
         experiencesStorage.getValue().then(value => {
