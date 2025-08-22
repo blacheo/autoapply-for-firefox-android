@@ -5,7 +5,7 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import dayjs from 'dayjs';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { Experience } from '@/utils/jobExperience';
-import { FieldArrayWithId, useFieldArray, useForm } from 'react-hook-form';
+import { Controller, FieldArrayWithId, useFieldArray, useForm } from 'react-hook-form';
 
 
 function defaultExperience(): Experience {
@@ -14,16 +14,20 @@ function defaultExperience(): Experience {
 
 export function ExperienceForm() {
     const [isLoading, setIsLoading] = useState(true);
-    const {register, handleSubmit, control} = useForm({
+    const { register, handleSubmit, control } = useForm({
         defaultValues: {
             experiences: [defaultExperience()]
         }
     });
 
-    const {fields, append, prepend, remove, swap, move, insert} = useFieldArray({
+    const { fields, append, prepend, remove, swap, move, insert } = useFieldArray({
         control,
         name: "experiences"
     })
+
+    const onSubmit = (data: any) => {
+        console.log(data)
+    }
 
     const singleWorkExperienceForm = (experience: FieldArrayWithId<{ experiences: Experience[]; }, "experiences", "id">, index: number, deleteDisabled: boolean) => (
         <>
@@ -31,13 +35,30 @@ export function ExperienceForm() {
                 <CardContent>
                     <Grid container spacing={2}>
                         <Grid spacing={2}>
-                            <TextField label="Company" defaultValue={experience.company} {...register(`experiences.${index}.company`)}/>
+                            <TextField label="Company" defaultValue={experience.company} {...register(`experiences.${index}.company`)} />
                             <TextField label="Job Title" defaultValue={experience.jobTitle} {...register(`experiences.${index}.jobTitle`)} />
                         </Grid>
                         <LocalizationProvider dateAdapter={AdapterDayjs}>
                             <Grid spacing={2}>
-                                <DatePicker label="Start Date" defaultValue={experience.startDate} />
-                                <DatePicker label="End Date" defaultValue={experience.endDate} />
+                                <Controller
+                                    name={`experiences.${index}.startDate`}
+                                    control={control}
+                                    render={({ field }) => (
+                                        <DatePicker label="Start Date" defaultValue={experience.startDate} onChange={(date) => field.onChange(date)} />
+                                    )}>
+
+                                </Controller>
+
+                                <Controller
+                                    name={`experiences.${index}.endDate`}
+                                    control={control}
+                                    render={({ field }) => (
+                                        <DatePicker label="End Date" defaultValue={experience.endDate} onChange={(date) => field.onChange(date)} />
+                                    )}>
+
+                                </Controller>
+
+                               
                             </Grid>
                         </LocalizationProvider>
                         <TextField label="Job Description" multiline defaultValue={experience.description} {...register(`experiences.${index}.description`)} fullWidth />
@@ -57,11 +78,16 @@ export function ExperienceForm() {
 
     return (
         <>
-            <Stack spacing={2}>
-                {fields.map((value, index) => singleWorkExperienceForm(value, index, fields.length == 1))}
-            </Stack>
+            <form onSubmit={handleSubmit(onSubmit)}>
+                <Stack spacing={2}>
+                    {fields.map((value, index) => singleWorkExperienceForm(value, index, fields.length == 1))}
+                </Stack>
+                <Button type="submit">Save</Button>
+            </form>
+
 
             <Button onClick={() => append(defaultExperience())}>Add Work Experience</Button>
+            
         </>
     )
 }
