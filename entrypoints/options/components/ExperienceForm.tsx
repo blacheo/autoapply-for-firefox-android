@@ -32,7 +32,7 @@ export function ExperienceForm() {
                     <Grid container spacing={2}>
                         <Grid spacing={2}>
                             <TextField label="Company" defaultValue={experience.company} {...register(`experiences.${index}.company`)}/>
-                            <TextField label="Job Title" defaultValue={experience.jobTitle} />
+                            <TextField label="Job Title" defaultValue={experience.jobTitle} {...register(`experiences.${index}.jobTitle`)} />
                         </Grid>
                         <LocalizationProvider dateAdapter={AdapterDayjs}>
                             <Grid spacing={2}>
@@ -40,7 +40,7 @@ export function ExperienceForm() {
                                 <DatePicker label="End Date" defaultValue={experience.endDate} />
                             </Grid>
                         </LocalizationProvider>
-                        <TextField label="Job Description" multiline defaultValue={experience.description} fullWidth />
+                        <TextField label="Job Description" multiline defaultValue={experience.description} {...register(`experiences.${index}.description`)} fullWidth />
                     </Grid>
 
 
