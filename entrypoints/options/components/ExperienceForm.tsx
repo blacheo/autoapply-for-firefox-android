@@ -4,18 +4,34 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import dayjs from 'dayjs';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { MouseEventHandler } from 'react';
-import { Experience, experiencesStorage } from '@/utils/jobExperience';
-import { useFieldArray } from 'react-hook-form';
+import { Experience } from '@/utils/jobExperience';
+import { FieldArrayWithId, useFieldArray, useForm } from 'react-hook-form';
 
-function SingleWorkExperienceForm(experience: Experience, deleteSelf: MouseEventHandler<HTMLButtonElement> | undefined, deleteDisabled: boolean) {
-    return (
+
+function defaultExperience(): Experience {
+    return { startDate: dayjs('2020-01-01'), endDate: dayjs('2021-01-01'), jobTitle: "", company: "", city: "", type: "", description: "" }
+}
+
+export function ExperienceForm() {
+    const [isLoading, setIsLoading] = useState(true);
+    const {register, handleSubmit, control} = useForm({
+        defaultValues: {
+            experiences: [defaultExperience()]
+        }
+    });
+
+    const {fields, append, prepend, remove, swap, move, insert} = useFieldArray({
+        control,
+        name: "experiences"
+    })
+
+    const singleWorkExperienceForm = (experience: FieldArrayWithId<{ experiences: Experience[]; }, "experiences", "id">, index: number, deleteDisabled: boolean) => (
         <>
-            <Card>
+            <Card key={experience.id}>
                 <CardContent>
                     <Grid container spacing={2}>
                         <Grid spacing={2}>
-                            <TextField label="Company" defaultValue={experience.company} onChange={() => setSelf()}/>
+                            <TextField label="Company" defaultValue={experience.company} {...register(`experiences.${index}.company`)}/>
                             <TextField label="Job Title" defaultValue={experience.jobTitle} />
                         </Grid>
                         <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -31,51 +47,21 @@ function SingleWorkExperienceForm(experience: Experience, deleteSelf: MouseEvent
                 </CardContent>
                 <CardActionArea />
                 <CardActions>
-                    <IconButton size='small' onClick={deleteSelf} disabled={deleteDisabled}><DeleteIcon /></IconButton>
+                    <IconButton size='small' onClick={() => remove(index)} disabled={deleteDisabled}><DeleteIcon /></IconButton>
                 </CardActions>
             </Card>
 
 
         </>
     )
-}
-
-function defaultExperience(): Experience {
-    return { startDate: dayjs('2020-01-01'), endDate: dayjs('2021-01-01'), jobTitle: "", company: "", city: "", type: "", description: "" }
-}
-
-export function ExperienceForm() {
-    const [experiences, setExperiences] = useState([defaultExperience()]);
-    const [isLoading, setIsLoading] = useState(true);
-
-    const {fields, append, prepend, remove, swap, move, insert} = useFieldArray({
-        name: "experiences"
-    })
-
-    useEffect(() => {
-        experiencesStorage.getValue().then(value => {
-            if (value !== null) {
-                setExperiences(value)
-            }
-        })
-
-        setIsLoading(false)
-        return () => { setIsLoading(true) }
-    }, [])
 
     return (
         <>
             <Stack spacing={2}>
-                {experiences.map((value, index) => SingleWorkExperienceForm(
-                    value,
-                     () => setExperiences(experiences.filter((_, j) => j != index)),
-                      experiences.length == 1,
-                      (newExperience: Experience) => {
-                        setExperiences(experiences.map((oldValue, j) => (j == index) ? newExperience : oldValue))
-                      }))}
+                {fields.map((value, index) => singleWorkExperienceForm(value, index, fields.length == 1))}
             </Stack>
 
-            <Button onClick={() => setExperiences([...experiences, defaultExperience()])}>Add Work Experience</Button>
+            <Button onClick={() => append(defaultExperience())}>Add Work Experience</Button>
         </>
     )
 }
