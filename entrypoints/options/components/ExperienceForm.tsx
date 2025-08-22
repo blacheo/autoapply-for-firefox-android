@@ -14,7 +14,10 @@ function defaultExperience(): Experience {
 
 export function ExperienceForm() {
     const [isLoading, setIsLoading] = useState(true);
-    const { register, handleSubmit, control } = useForm({
+
+    
+
+    const { register, handleSubmit, control, reset } = useForm({
         defaultValues: {
             experiences: [defaultExperience()]
         }
@@ -25,12 +28,20 @@ export function ExperienceForm() {
         name: "experiences"
     })
 
-    const onSubmit = (data: any) => {
+    useEffect(() => {
+        experiencesStorage.getValue().then((retrievedExp) => retrievedExp && reset({experiences: retrievedExp}))
+        setIsLoading(false)
+        return () => {
+            setIsLoading(true)
+        }
+    }, [])
+
+    const onSubmit = (data: { experiences: Experience[] | null; }) => {
         console.log(data)
+        experiencesStorage.setValue(data.experiences)
     }
 
     const singleWorkExperienceForm = (experience: FieldArrayWithId<{ experiences: Experience[]; }, "experiences", "id">, index: number, deleteDisabled: boolean) => (
-        <>
             <Card key={experience.id}>
                 <CardContent>
                     <Grid container spacing={2}>
@@ -71,9 +82,6 @@ export function ExperienceForm() {
                     <IconButton size='small' onClick={() => remove(index)} disabled={deleteDisabled}><DeleteIcon /></IconButton>
                 </CardActions>
             </Card>
-
-
-        </>
     )
 
     return (
